@@ -61,8 +61,9 @@ const produtos = [
     </div>
 
     <div class="barracima">
-        <h1>Compras Gamers</h1>
+        <h1>Mercadinho do Zé</h1>    
     </div>
+
 
     <div class="botaocar">
         <button class="dog"><img src="frozen.jpg" alt="cachorro" width="60"></button>
@@ -86,21 +87,23 @@ const produtos = [
     grid-template-columns: 100px 500px 100px;
     grid-template-rows: auto;
     margin-bottom: 1000px;
+    justify-content: space-between;
+    border-bottom: 10px solid red;
 }
 
 .barracima {
-    background-color: rgb(255, 0, 0);
-    color: white;
+    
+    color: rgb(0, 0, 0);
     text-align: center;
     width: 100%;
 }
 .botaocar {
-    background-color: rgb(255, 0, 0);
+    
     color: white;
 }
 
 .logo {
-    background-color: rgb(255, 0, 0);
+    
     color: white;
 }
 </style>
