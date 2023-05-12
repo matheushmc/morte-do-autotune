@@ -1,109 +1,191 @@
 <script setup>
-const produtos = [
+import { ref } from 'vue'
+const produtos = ref([
     {
         id: 1,
         nome: 'Camiseta',
+        quantidade: 0,
         preco: 49.90
     },
     {
         id: 2,
         nome: 'Calça',
+        quantidade: 0,
         preco: 99.90
     },
     {
         id: 3,
         nome: 'Meia',
-        preco: 9.90
+        preco: 9.90,
+        quantidade: 0
     },
     {
         id: 4,
         nome: 'Sapato',
+        quantidade: 0,
         preco: 199.90
     },
     {
         id: 5,
         nome: 'Boné',
-        preco: 29.90
+        preco: 29.90,
+        quantidade: 0
     },
     {
         id: 6,
         nome: 'Óculos',
+        quantidade: 0,
         preco: 99.90
     },
     {
         id: 7,
         nome: 'Relógio',
+        quantidade: 0,
         preco: 299.90
     },
     {
         id: 8,
         nome: 'Bermuda',
+        quantidade: 0,
         preco: 79.90
     },
     {
         id: 9,
         nome: 'Cueca',
+        quantidade: 0,
         preco: 19.90
     },
     {
         id: 10,
         nome: 'Meia',
-        preco: 9.90
+        preco: 9.90,
+        quantidade: 0
     }
 ]
+)
+const carrinho = ref({
+  items: [],
+  total: 0
+})
+
+let valorTotal = ref(0)
+
+function addcar(produto) {
+  carrinho.value.items.push({
+    id: produto.id, 
+    nome: produto.nome, 
+    preco: produto.preco, 
+    quantidade: produto.quantidade,
+    total: produto.preco * produto.quantidade
+  });
+  carrinho.value.total += produto.preco * produto.quantidade
+}
+function add(index){
+  produtos.value[index].quantidade++
+  const pos = carrinho.value.items.indexOf(carrinho.value.items.find(c => c.id===produtos.value[index].id))
+  if(pos != -1) {
+    carrinho.value.total -= carrinho.value.items[pos].total
+    carrinho.value.items[pos].total = ++carrinho.value.items[pos].quantidade * carrinho.value.items[pos].preco 
+    carrinho.value.total += carrinho.value.items[pos].total
+ 
+  }
+}
+function diminui(index){
+  produtos.value[index].quantidade--
+}
 </script>
 
 <template>
-<div class="barra">
-    
-    <div class="logo">
-        <img src="gato.jpg" alt="carinho.png" width="60" class="carinho" >
+
+        <div class="row"></div>
+
+<div class="barracima">
+
+    <div>
+        <img src="frozen.jpg" alt="carrinho" class="pidao imgs">
     </div>
 
-    <div class="barracima">
-        <h1>Mercadinho do Zé</h1>    
+    <div>
+        <h1>Mercado</h1>
     </div>
 
-
-    <div class="botaocar">
-        <button class="dog"><img src="frozen.jpg" alt="cachorro" width="60"></button>
+    <div>
+        <button><img src="gato.jpg" alt="chorro" class="carito imgs"></button>
     </div>
 
 </div>
+ <div class="separa">
 
+<div  v-for="(produto, index) in produtos" :key="produto.id">
+
+    <div  class="corpo"> 
+        <b> {{ produto.id }} - {{ produto.nome }} </b>
+            <br>
+        <h6>Preço: {{ produto.preco }}</h6>
+        <h6>Quantidade: {{ produto.quantidade }}</h6>
+
+        <button type="button" @click="diminui(index)" class="botao mudarcor2">-</button>
+        <button type="button" @click="add(index)" class="botao mudarcor">+</button>
+        <button type="button" @click="addcar(produto)" class="botao mudarcor">Adicionar</button>
+  </div>
+
+</div>
+</div>
+
+<div>
+    {{  carrinho }}
+</div>
 </template>
 
 <style scoped>
-.dog {
-    border: solid white 1px;
-    background-color: white;
+
+
+
+.barracima {
+    display: grid;
+    grid-template-columns: 100px 250px 100px;
+    justify-content: space-between;
+    border-bottom: rgb(0, 247, 255) solid 10px;
+    font-family: 'Caveat', cursive;
 }
-.carinho {
+
+.pidao {
     border-radius: 100px;
 }
 
-.barra{
-    display: grid;
-    grid-template-columns: 100px 500px 100px;
-    grid-template-rows: auto;
-    margin-bottom: 1000px;
-    justify-content: space-between;
-    border-bottom: 10px solid red;
-}
-
-.barracima {
-    
+.corpo {
+    font-size: 25px;
+    padding: 25px;
     color: rgb(0, 0, 0);
-    text-align: center;
-    width: 100%;
-}
-.botaocar {
-    
-    color: white;
+    border: solid 10px rgb(0, 238, 255);
+    border-radius: 15px;
+    width: 200px;
+    margin-top: 30px;
+    font-family: 'Caveat', cursive;
+  }
+
+.botao {
+    font-size: 25px;
+    font-family: 'Caveat', cursive;
 }
 
-.logo {
-    
-    color: white;
-}
+  .mudarcor:hover {
+    transition: 0.5s;
+    color: green;
+  }
+
+  .mudarcor2:hover {
+    transition: 0.5s;
+    color: rgb(255, 0, 0);
+  }
+
+  .imgs {
+    width: 50px;
+  }
+
+  .separa{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 </style>
