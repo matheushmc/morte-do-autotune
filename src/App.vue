@@ -104,17 +104,13 @@ function diminui(index){
 
 <div class="barracima">
 
-    <div>
-        <img src="frozen.jpg" alt="carrinho" class="pidao imgs">
-    </div>
+  
 
     <div>
         <h1>Mercado</h1>
     </div>
 
-    <div>
-        <button><img src="gato.jpg" alt="chorro" class="carito imgs"></button>
-    </div>
+   
 
 </div>
  <div class="separa">
