@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from 'vue'
+
+const btnCarrinho = ref(false)
+
 const produtos = ref([
     {
         id: 1,
@@ -132,9 +135,26 @@ function diminui(index){
 </div>
 </div>
 
-<div>
-    {{  carrinho }}
+<!-- Div carrinho -->
+
+<button type="button" class="btnCarrinho" @click="btnCarrinho = !btnCarrinho" >Carrinho</button>
+
+<div v-if="btnCarrinho">
+
+<!-- div v-for do carrinho -->
+<div v-for="(itemCarrinho, id) in carrinho.items" :key="itemCarrinho.id" class="textCarrinho">
+
+  <h4>{{itemCarrinho.id }} - {{ itemCarrinho.nome }} </h4>
+  <p>Preço: {{itemCarrinho.preco}}</p>
+  <p>Quant: {{ itemCarrinho.quantidade }}</p>
+  <p>Valor total da produto: {{itemCarrinho.total }}</p>
+  <hr>
+  
 </div>
+
+
+</div>
+
 </template>
 
 <style scoped>
@@ -187,5 +207,25 @@ function diminui(index){
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+  }
+
+  .btnCarrinho{
+    color: rgb(0, 0, 0);
+    padding: 30px;
+    font-size: x-large;
+    background-color: cyan;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-top: 5px;
+  }
+  .textCarrinho{
+    color: black;
+    padding: 10px;
+    background-color: cyan;
+    width: 7%;
+    border: black;
+    border-radius: 5px;
+    margin-left:5px ;
+    margin-top: 10px;
   }
 </style>
